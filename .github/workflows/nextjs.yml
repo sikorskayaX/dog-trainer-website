@@ -28,9 +28,6 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
-    env: # Env variables needed during build
-      NEXT_PUBLIC_BOT_TOKEN:  ${{secrets.BOT_TOKEN}}
-      NEXT_PUBLIC_CHAT_ID: ${{secrets.CHAT_ID}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -79,7 +76,7 @@ jobs:
       - name: Create .env.production file
         run: |
           echo "NODE_ENV=production" >> .env.production
-          echo "NEXT_PUBLIC_BOT_TOKEN==${{ secrets.BOT_TOKEN }}" >> .env.production
+          echo "NEXT_PUBLIC_BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env.production
           echo "NEXT_PUBLIC_CHAT_ID=${{ secrets.CHAT_ID }}" >> .env.production
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} npm run build
