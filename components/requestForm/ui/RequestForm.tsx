@@ -8,8 +8,8 @@ import { FormSelect } from "./FormSelect";
 import { useForm } from "react-hook-form";
 import SubmitStatus from "./SubmitStatus";
 
-const botToken = process.env.BOT_TOKEN;
-const chatId = process.env.CHAT_ID;
+const botToken = process.env.NEXT_PUBLIC_BOT_TOKEN;
+const chatId = process.env.NEXT_PUBLIC_CHAT_ID;
 const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
 interface FormData {
