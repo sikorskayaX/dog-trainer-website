@@ -8,9 +8,7 @@ import { FormSelect } from "./FormSelect";
 import { useForm } from "react-hook-form";
 import SubmitStatus from "./SubmitStatus";
 
-const botToken = process.env.NEXT_PUBLIC_BOT_TOKEN;
-const chatId = process.env.NEXT_PUBLIC_CHAT_ID;
-const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+const url = `https://api.telegram.org/bot${process.env.NEXT_PUBLIC_BOT_TOKEN}/sendMessage`;
 
 interface FormData {
   name: string;
@@ -44,7 +42,7 @@ export const RequestForm = () => {
         Локация: ${data.location}`;
 
       const response = await axios.post(url, {
-        chat_id: chatId,
+        chat_id: process.env.NEXT_PUBLIC_CHAT_ID,
         text: message,
       });
 
