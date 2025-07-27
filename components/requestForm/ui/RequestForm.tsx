@@ -2,44 +2,58 @@
 
 import { useState } from "react";
 import axios from "axios";
-import { serviceOptions, locationOptions, weightOptions } from "../consts";
+import { serviceOptions, weightOptions, contactOptions } from "../consts";
 import { InputField } from "./InputField";
 import { FormSelect } from "./FormSelect";
-import { useForm } from "react-hook-form";
+import { useController, useForm } from "react-hook-form";
 import SubmitStatus from "./SubmitStatus";
+import { TgInputField } from "./TgInputField";
+import { PhoneInput } from "./PhoneInput";
+import { SubmitButton } from "./SubmitButton";
 
 const url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`;
 
 interface FormData {
   name: string;
-  tg: string;
+  tg?: string;
+  phoneNumber?: string;
   dogName: string;
   dogSize: string;
   service: string;
-  location: string;
+  contactWith: string;
 }
 
 export const RequestForm = () => {
   const {
+    watch,
     register,
     handleSubmit,
     formState: { isSubmitting },
+    control,
+    reset,
   } = useForm<FormData>();
+
+  const { field: phoneField } = useController({
+    name: "phoneNumber",
+    control,
+  });
 
   const [submitStatus, setSubmitStatus] = useState<null | "success" | "error">(
     null
   );
-
+  const contactMethod = watch("contactWith");
   const onSubmit = async (data: FormData) => {
     try {
       // Формируем сообщение для Telegram
       const message = `Новая заявка:
         Имя: ${data.name}
-        Tg: ${data.tg}
-        Имя собаки: ${data.dogName}
+        Способ связи: ${data.contactWith}
+        Tелега: ${data.tg ? data.tg : "-"}
+        Номер телефона: ${data.phoneNumber ? data.phoneNumber : "-"}
+        Кличка собаки: ${data.dogName}
         Размер собаки: ${data.dogSize}
         Услуга: ${data.service}
-        Локация: ${data.location}`;
+        `;
 
       const response = await axios.post(url, {
         chat_id: process.env.CHAT_ID,
@@ -48,6 +62,7 @@ export const RequestForm = () => {
 
       if (response.status === 200) {
         setSubmitStatus("success");
+        reset();
       } else {
         setSubmitStatus("error");
       }
@@ -66,17 +81,34 @@ export const RequestForm = () => {
         className="flex flex-col gap-5"
       >
         <div className="flex gap-[10px]">
+          <FormSelect
+            name="contactWith"
+            register={register}
+            options={contactOptions}
+            placeholder="Способ связи"
+          />
+          {contactMethod === "telegram" ? (
+            <TgInputField
+              name="tg"
+              register={register}
+              placeholder="@username"
+            />
+          ) : (
+            <PhoneInput
+              value={phoneField.value ? phoneField.value.slice(1) : ""}
+              onChange={phoneField.onChange}
+              disabled={!contactMethod}
+            />
+          )}
+        </div>
+
+        <div className="flex gap-[10px]">
           <InputField
             name="name"
             placeholder="Ваше имя"
             register={register}
             rules={{ required: true }}
           />
-
-          <InputField name="tg" placeholder="Telegram" register={register} />
-        </div>
-
-        <div className="flex gap-[10px]">
           <InputField
             name="dogName"
             placeholder="Кличка собаки"
@@ -97,15 +129,17 @@ export const RequestForm = () => {
           groupedOptions={serviceOptions}
           placeholder="Выберите услугу"
         />
+        {/* <div className="flex items-center">
+          <input type="checkbox" id="consent" />
+          <label htmlFor="consent" className="ml-2">
+            Я согласен на обработку моих персональных данных в соответствии с{" "}
+            <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+              политикой конфиденциальности
+            </a>
+          </label>
+        </div> */}
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full bg-gradient-to-r from-amber-500 to-orange-600 text-white px-8 py-4 rounded-xl hover:from-amber-600 hover:to-orange-700 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap cursor-pointer"
-        >
-          {isSubmitting ? "Отправка..." : "Записаться на занятие"}
-        </button>
-
+        <SubmitButton isSubmitting={isSubmitting} />
         <SubmitStatus status={submitStatus} />
       </form>
     </div>

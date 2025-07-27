@@ -32,7 +32,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
     <select
       {...register(name, rules)}
       required
-      className="w-full px-4 py-3 pr-8 bg-slate-800 border border-gray-600 rounded-xl text-white focus:outline-none focus:border-amber-400 transition-colors text-sm appearance-none"
+      className="w-full min-w-[200px] px-4 py-3 pr-8 bg-slate-800 border border-gray-600 rounded-xl text-white focus:outline-none focus:border-amber-400 transition-colors text-sm appearance-none"
     >
       <option value="">{placeholder}</option>
       {groupedOptions.length > 0

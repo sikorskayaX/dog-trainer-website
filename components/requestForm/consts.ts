@@ -2,36 +2,41 @@ export const serviceOptions = [
   {
     label: "Дрессировка",
     options: [
-      { value: "okd", label: "Общий курс дрессировки (ОКД)" },
-      { value: "ugs", label: "Управляемая городская собака (УГС)" },
-      { value: "nkd", label: "Начальный курс дрессировки (НКД)" },
-      { value: "behavior", label: "Коррекция поведения" },
-      { value: "socialization", label: "Социализация" },
+      { value: "ОКД", label: "Общий курс дрессировки (ОКД)" },
+      { value: "УГС", label: "Управляемая городская собака (УГС)" },
+      { value: "НКД", label: "Начальный курс дрессировки (НКД)" },
+      { value: "Коррекция поведения", label: "Коррекция поведения" },
+      { value: "Социализация", label: "Социализация" },
     ],
   },
   {
     label: "Передержка",
     options: [
-      { value: "boarding", label: "Передержка" },
-      { value: "boarding-unteached", label: "Передержка неприученных собак" },
-      { value: "boarding-training", label: "Пансион с дрессировкой" },
+      { value: "Передержка", label: "Передержка" },
+      { value: "Передержка неприученных", label: "Передержка неприученных собак" },
+      { value: "Пансион с дрессировкой", label: "Пансион с дрессировкой" },
     ],
   },
   {
     label: "Консультация",
     options: [
-      { value: "consultation", label: "Консультация" },
-      { value: "online-consultation", label: "Онлайн консультация" },
+      { value: "Консультация оффлайн", label: "Консультация" },
+      { value: "Онлайн консультация", label: "Онлайн консультация" },
     ],
   },
 ];
 
-export const locationOptions = [
-  { value: "instructor", label: "На территории инструктора (500₽/час)" },
-  { value: "client", label: "Выезд к клиенту в Мариуполе (1000₽/час)" },
-  { value: "online", label: "Онлайн консультация" },
-];
+
 export const weightOptions = [
-  { value: "littleDog", label: "Маленькая собака до 20кг" },
-  { value: "bigDog", label: "Большая собака более 20кг" },
+  { value: "Маленькая собака", label: "Маленькая собака до 20кг" },
+  { value: "Большая собака", label: "Большая собака более 20кг" },
 ];
+
+
+
+
+export const contactOptions = [
+  { value: "phone", label: "По телефону" },
+  { value: "telegram", label: "Через Telegram" },
+];
+

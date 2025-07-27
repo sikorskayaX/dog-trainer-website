@@ -1,7 +1,7 @@
 "use client";
 
 import { achievements, certificates } from "../consts";
-import classNames from "classnames";
+
 
 export const Experience = () => {
   return (
