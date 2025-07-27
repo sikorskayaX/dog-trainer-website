@@ -11,8 +11,8 @@ const nextConfig: NextConfig = {
     // ignoreBuildErrors: true,
   },
   env: {
-    BOT_TOKEN: process.env.NEXT_PUBLIC_BOT_TOKEN,
-    CHAT_ID: process.env.NEXT_PUBLIC_CHAT_ID,
+    BOT_TOKEN: process.env.BOT_TOKEN,
+    CHAT_ID: process.env.CHAT_ID,
   },
 };
 
